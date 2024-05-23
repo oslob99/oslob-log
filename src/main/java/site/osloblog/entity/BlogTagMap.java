@@ -9,17 +9,19 @@ import site.osloblog.common.base.BaseEntity;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "blog_tb")
-public class Blog extends BaseEntity {
+@Table(name = "blog_tag_map")
+public class BlogTagMap extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long blogId;
+  private Long blogTagId;
 
-  @Column(nullable = false, length = 100, name = "blog_title")
-  private String title;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "blog_id")
+  private Blog blog;
 
-  @Column(nullable = false, length = 3000, name = "blog_content")
-  private String content;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "tag_id")
+  private Tag tag;
 
 }
